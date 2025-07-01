@@ -1,6 +1,7 @@
 # Node modules
 node_modules/
 natours-api/nMods
+natours-api/node_modules
 
 # Logs
 logs/
