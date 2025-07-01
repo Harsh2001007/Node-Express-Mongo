@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-const { status } = require("wd/lib/commands");
 
 app.use(express.json());
 
@@ -49,6 +48,36 @@ app.post("/api/v1/tours", (req, resp) => {
       });
     }
   );
+});
+
+app.patch("/api/v1/tours/:id", (req, resp) => {
+  if (req.params.id * 1 > Tours.length) {
+    return resp.status(401).json({
+      status: "fail",
+      message: "invalid id",
+    });
+  }
+
+  resp.status(200).json({
+    status: "success",
+    data: {
+      tour: "<Updated tour here ...>",
+    },
+  });
+});
+
+app.delete("/api/v1/tours/:id", (req, resp) => {
+  if (req.params.id * 1 > Tours.length) {
+    return resp.status(401).json({
+      status: "fail",
+      message: "invalid id",
+    });
+  }
+
+  resp.status(201).json({
+    status: "success",
+    data: null,
+  });
 });
 
 app.listen(8011, () => {
