@@ -147,23 +147,21 @@ const deleteUser = (req, resp) => {
 
 // app.delete("/api/v1/tours/:id", deleteTour);
 
-//Refactored way and chaining routes
+// Refactored way and chaining routes
 
-app.route("/api/v1/tours").get(getAllTours).post(createTour);
-app
-  .route("/api/v1/tours/:id")
-  .get(getTourById)
-  .patch(updateTour)
-  .delete(deleteTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter.route("/:id").get(getTourById).patch(updateTour).delete(deleteTour);
 
 // ---> User Routes
 
-app.route("/api/v1/users").get(getAllUsers).post(createUsers);
-app
-  .route("/api/v1/users/:id")
-  .patch(updateUser)
-  .delete(deleteUser)
-  .get(getUserById);
+userRouter.route("/").get(getAllUsers).post(createUsers);
+userRouter.route("/:id").patch(updateUser).delete(deleteUser).get(getUserById);
+
+app.use("/api/v1/tours", tourRouter);
+app.use("/api/v1/users", userRouter);
 
 // 5.) Server starts
 app.listen(8011, () => {
