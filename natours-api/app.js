@@ -98,6 +98,43 @@ const deleteTour = (req, resp) => {
   });
 };
 
+// ---> User controller
+
+const getAllUsers = (req, resp) => {
+  resp.status(500).json({
+    status: "error",
+    message: "route not implemented",
+  });
+};
+
+const createUsers = (req, resp) => {
+  resp.status(500).json({
+    status: "error",
+    message: "route not implemented",
+  });
+};
+
+const getUserById = (req, resp) => {
+  resp.status(500).json({
+    status: "error",
+    message: "route not implemented",
+  });
+};
+
+const updateUser = (req, resp) => {
+  resp.status(500).json({
+    status: "error",
+    message: "route not implemented",
+  });
+};
+
+const deleteUser = (req, resp) => {
+  resp.status(500).json({
+    status: "error",
+    message: "route not implemented",
+  });
+};
+
 // 4.) Routes
 
 // app.get("/api/v1/tours", getAllTours);
@@ -118,6 +155,15 @@ app
   .get(getTourById)
   .patch(updateTour)
   .delete(deleteTour);
+
+// ---> User Routes
+
+app.route("/api/v1/users").get(getAllUsers).post(createUsers);
+app
+  .route("/api/v1/users/:id")
+  .patch(updateUser)
+  .delete(deleteUser)
+  .get(getUserById);
 
 // 5.) Server starts
 app.listen(8011, () => {
