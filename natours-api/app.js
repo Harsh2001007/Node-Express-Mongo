@@ -8,7 +8,7 @@ const Tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-app.get("/api/v1/tours", (req, resp) => {
+const getAllTours = (req, resp) => {
   resp.status(200).json({
     status: "success",
     results: Tours.length,
@@ -16,9 +16,9 @@ app.get("/api/v1/tours", (req, resp) => {
       tour: Tours,
     },
   });
-});
+};
 
-app.get("/api/v1/tours/:id", (req, resp) => {
+const getTourById = (req, resp) => {
   const reqID = req.params.id * 1;
   const searchedTour = Tours[reqID];
 
@@ -28,9 +28,9 @@ app.get("/api/v1/tours/:id", (req, resp) => {
       searchedTour,
     },
   });
-});
+};
 
-app.post("/api/v1/tours", (req, resp) => {
+const createTour = (req, resp) => {
   const newId = Tours.length;
   const newTour = Object.assign({ id: newId }, req.body);
 
@@ -48,9 +48,9 @@ app.post("/api/v1/tours", (req, resp) => {
       });
     }
   );
-});
+};
 
-app.patch("/api/v1/tours/:id", (req, resp) => {
+const updateTour = (req, resp) => {
   if (req.params.id * 1 > Tours.length) {
     return resp.status(401).json({
       status: "fail",
@@ -64,9 +64,9 @@ app.patch("/api/v1/tours/:id", (req, resp) => {
       tour: "<Updated tour here ...>",
     },
   });
-});
+};
 
-app.delete("/api/v1/tours/:id", (req, resp) => {
+const deleteTour = (req, resp) => {
   if (req.params.id * 1 > Tours.length) {
     return resp.status(401).json({
       status: "fail",
@@ -78,7 +78,26 @@ app.delete("/api/v1/tours/:id", (req, resp) => {
     status: "success",
     data: null,
   });
-});
+};
+
+// app.get("/api/v1/tours", getAllTours);
+
+// app.get("/api/v1/tours/:id", getTourById);
+
+// app.post("/api/v1/tours", createTour);
+
+// app.patch("/api/v1/tours/:id", updateTour);
+
+// app.delete("/api/v1/tours/:id", deleteTour);
+
+//Refactored way and chaining routes
+
+app.route("/api/v1/tours").get(getAllTours).post(createTour);
+app
+  .route("/api/v1/tours/:id")
+  .get(getTourById)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 app.listen(8011, () => {
   "server started on 8011";
