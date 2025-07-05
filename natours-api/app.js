@@ -135,20 +135,6 @@ const deleteUser = (req, resp) => {
   });
 };
 
-// 4.) Routes
-
-// app.get("/api/v1/tours", getAllTours);
-
-// app.get("/api/v1/tours/:id", getTourById);
-
-// app.post("/api/v1/tours", createTour);
-
-// app.patch("/api/v1/tours/:id", updateTour);
-
-// app.delete("/api/v1/tours/:id", deleteTour);
-
-// Refactored way and chaining routes
-
 const tourRouter = express.Router();
 const userRouter = express.Router();
 
