@@ -32,6 +32,5 @@ app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 
 // 5.) Server starts
-app.listen(8011, () => {
-  "server started on 8011";
-});
+
+module.exports = app;
